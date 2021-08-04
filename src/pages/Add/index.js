@@ -12,7 +12,7 @@ const Add = () => {
                 <div className="card-body">
                     <form>
                         <Input label="Item Name" placeholder="Item Name"/>
-                        <Input label="Amount" placeholder="Number" type="numeric"/>
+                        <Input label="Amount" placeholder="Number" type="number"/>
                         <br/>
                         <Button title="Enter" type="submit"/>
                     </form>

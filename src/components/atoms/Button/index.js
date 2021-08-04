@@ -1,10 +1,9 @@
 import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-function Button({title, ...rest}) {
+const Button = ({title, ...rest}) => {
     return (
-        <div>
-            <button className="btn btn-success" {...rest}>{title}</button>
-        </div>
+        <button className="btn btn-success" {...rest}>{title}</button>
     )
 }
 
