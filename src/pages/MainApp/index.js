@@ -7,18 +7,20 @@ import { Home, Login, Register } from '../../pages'
 
 const MainApp = () => {
     return (
-        <Router>
-            <Navbar/>
-            <Switch>
-                <Route path='/add'>
-                    <Add/>
-                </Route>
-                <Route path="/">
-                    <Home/>
-                </Route>
-            </Switch>
-            <p>Footer</p>
-        </Router>
+        <div>
+            <Router>
+                <Navbar/>
+                <Switch>
+                    <Route path='/add'>
+                        <Add/>
+                    </Route>
+                    <Route path="/">
+                        <Home/>
+                    </Route>
+                </Switch>
+                <p>Footer</p>
+            </Router>
+        </div>
     )
 }
 

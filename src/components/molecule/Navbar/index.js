@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
-import { Home } from '../../../pages'
+import { Home, Login } from '../../../pages'
 import Add from '../../../pages/Add'
 import { useHistory } from 'react-router-dom'
 import { Button } from '../..'
@@ -21,6 +21,14 @@ const Navbar = () => {
                         <div className="d-flex navbar-nav">
                             <Button onClick={() => history.push('/add')} title="Add"/>
                             <Button onClick={() => history.push('/')} title="Home"/>
+                            <Button onClick={() => window.location='/login'} title="Logout"/>
+                            {/* <Router>
+                                <Switch>
+                                    <Route path="/login">
+                                        <Login/>
+                                    </Route>
+                                </Switch>
+                            </Router> */}
                         </div>
                     </div>
                 </div>
