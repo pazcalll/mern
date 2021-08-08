@@ -18,7 +18,6 @@ const MainApp = () => {
                         <Home/>
                     </Route>
                 </Switch>
-                <p>Footer</p>
             </Router>
         </div>
     )
