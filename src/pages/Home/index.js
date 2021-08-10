@@ -1,10 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import {useSelector} from 'react-redux'
 import './index.css'
 
 const Home = () => {
     let i = 0
     const [data, setData] = useState([]);
+
+    const stateGlobal = useSelector(state => state)
+    console.log(stateGlobal)
     useEffect(() => {
         axios.get('http://localhost:4000/goods')
         .then(result => {

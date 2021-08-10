@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import Routes from './config/Router';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import store from './config/redux/store';
+import { Provider } from 'react-redux';
 function App() {
   return (
     // <div className="App">
@@ -20,7 +22,9 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <Routes/>
+    <Provider store={store}>
+      <Routes/>
+    </Provider>
   );
 }
 
