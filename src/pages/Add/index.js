@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react'
 import './index.css' 
 import { Input, Button } from '../../components'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
+import { useHistory, withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItemPost, setForm } from '../../config/redux/action'
+import { addItemPost, addItemUpdate, setForm } from '../../config/redux/action'
 
 const Add = (props) => {
     const {form} = useSelector(state => state.addItemReducer)
     const {title, body} = form
     const dispatch = useDispatch()
     const [isUpdate, setIsUpdate] = useState(false)
+    const history = useHistory()
     // const [title, setTitle] = useState('')
     // const [body, setBody] = useState('')
 
@@ -31,7 +32,16 @@ const Add = (props) => {
     }, [])
 
     const onSubmit = () => {
-        addItemPost(form)
+        const id = props.match.params.id
+        if(isUpdate){
+            console.log('update data...')
+            addItemUpdate(form, id)
+        } else{
+            console.log('create data...')
+            addItemPost(form)
+            alert(`${title} added`)
+            history.push('/')
+        }
     }
 
     return (

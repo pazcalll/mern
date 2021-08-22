@@ -7,7 +7,7 @@ const initialState = {
 
 const addItemReducer = (state = initialState, action) => {
     if(action.type === 'SET_FORM_DATA'){
-        console.log(action)
+        // console.log(action)
         return {
             ...state,
             form: {

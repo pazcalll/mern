@@ -19,3 +19,19 @@ export const addItemPost = (form) => {
         console.log("error: ", err)
     })
 }
+
+export const addItemUpdate = (form, id) => {
+    const data = {
+        name: form.title,
+        goodsToChannel: form.body
+    }
+
+    // console.log(data)
+    axios.put(`http://localhost:4000/goods/${id}`, data)
+    .then(res=>{
+        console.log("updated data: ", res)
+    })
+    .catch(err =>{
+        console.log("error: ", err)
+    })
+}
