@@ -1,17 +1,19 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Button } from '../../components'
-import { updateGoods } from '../../config/redux/action/homeActions'
+import { updateGoods } from '../../config/redux/action'
 import './index.css'
 
 const Home = () => {
     let i = 0
     let j = 0
+    const history = useHistory()
     const [data, setData] = useState([]);
     const [counter, setCounter] = useState(1);
     // const stateGlobal = useSelector(state => state)
-    let {dataGoods, name, page} = useSelector(state => state)
+    let {dataGoods, name, page} = useSelector(state => state.homeReducer)
     const dispatch = useDispatch()
     
     // console.log(stateGlobal)
@@ -38,6 +40,7 @@ const Home = () => {
                         <th scope="col">Name</th>
                         <th scope="col">Channel</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +54,10 @@ const Home = () => {
                                     <td>{data.name}</td>
                                     <td>{data.goodsToChannel}</td>
                                     <td>{data.goodsDate}</td>
+                                    <td>
+                                        <span onClick={() => history.push(`/add/${data._id}`)} className="btn btn-outline-warning" style={{marginRight:'10px'}}>Edit</span>
+                                        <span className="btn btn-outline-danger">Delete</span>
+                                    </td>
                                 </tr>
                             )
                         })

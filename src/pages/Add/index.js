@@ -1,47 +1,51 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css' 
 import { Input, Button } from '../../components'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItemPost, setForm } from '../../config/redux/action'
 
-const Add = () => {
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
+const Add = (props) => {
+    const {form} = useSelector(state => state.addItemReducer)
+    const {title, body} = form
+    const dispatch = useDispatch()
+    const [isUpdate, setIsUpdate] = useState(false)
+    // const [title, setTitle] = useState('')
+    // const [body, setBody] = useState('')
+
+    useEffect(() => {
+        if(props.match.params.id){
+            const id = props.match.params.id;
+            setIsUpdate(true);
+            axios.get(`http://localhost:4000/goods/${id}`)
+                .then(res => {
+                    const data = res.data
+                    console.log(data)
+                    dispatch(setForm('title', data.name))
+                    dispatch(setForm('body', data.goodsToChannel))
+                })
+                .catch(err => console.log(err))
+        }
+        // console.log(props)
+    }, [])
 
     const onSubmit = () => {
-        console.log('title: ', title)
-        console.log('body: ', body)
-
-        // const data = new FormData();
-        // data.append('name', title)
-        // data.append('goodsToChannel', body)
-
-        const data = {
-            name: title,
-            goodsToChannel: body
-        }
-
-        console.log(data)
-        axios.post('http://localhost:4000/goods', data)
-        .then(res=>{
-            console.log("insert data: ", res)
-        })
-        .catch(err =>{
-            console.log("error: ", err)
-        })
+        addItemPost(form)
     }
 
     return (
         <div className="add">
             <div className="card">
                 <div className="card-header">
-                    <h3>Add</h3>
+                    <h3>{isUpdate ? 'Edit Data' : 'Add'}</h3>
                 </div>
                 <div className="card-body">
                     <form>
-                        <Input label="Item Name" placeholder="Item Name" onChange={(e)=>setTitle(e.target.value)}/>
-                        <Input label="Channel" placeholder="Channel" onChange={(e)=>setBody(e.target.value)}/>
+                        <Input label="Item Name" value={title} placeholder="Item Name" onChange={(e)=> dispatch(setForm('title', e.target.value))}/>
+                        <Input label="Channel" value={body} placeholder="Channel" onChange={(e)=> dispatch(setForm('body', e.target.value))}/>
                         <br/>
-                        <Button title="Enter" onClick={onSubmit} type="submit"/>
+                        <Button title={isUpdate ? 'Update' : 'Enter'} onClick={onSubmit} type="submit"/>
                     </form>
                 </div>
             </div>
@@ -49,4 +53,4 @@ const Add = () => {
     )
 }
 
-export default Add
+export default withRouter(Add) 

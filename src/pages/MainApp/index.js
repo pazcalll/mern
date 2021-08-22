@@ -11,7 +11,7 @@ const MainApp = () => {
             <Router>
                 <Navbar/>
                 <Switch>
-                    <Route path='/add'>
+                    <Route path='/add/:id?'>
                         <Add/>
                     </Route>
                     <Route path="/">
