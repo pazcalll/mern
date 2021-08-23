@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom'
 import { Button } from '../../components'
 import { updateGoods } from '../../config/redux/action'
 import './index.css'
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Home = () => {
     let i = 0
@@ -31,6 +33,32 @@ const Home = () => {
             setCounter(counter - 1)
         }
     }
+    const confirmDelete = (item, id) => {
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: `Do you wish to delete item ${item}?`,
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => {
+                    alert('Deleted')
+                    axios.delete(`http://localhost:4000/goods/${id}`)
+                        .then(res => {
+                            console.log('Success delete: ', res.data)
+                            dispatch(updateGoods(counter))
+                        })
+                        .catch(err => {
+                            console.log('Error', err)
+                        })
+                }
+              },
+              {
+                label: 'No',
+                onClick: () => alert('Canceled')
+              }
+            ]
+        });
+    }
     return (
         <div className="table-center">
             <table className="table table-hover">
@@ -56,7 +84,7 @@ const Home = () => {
                                     <td>{data.goodsDate}</td>
                                     <td>
                                         <span onClick={() => history.push(`/add/${data._id}`)} className="btn btn-outline-warning" style={{marginRight:'10px'}}>Edit</span>
-                                        <span className="btn btn-outline-danger">Delete</span>
+                                        <span onClick={() => confirmDelete(data.name, data._id)} className="btn btn-outline-danger">Delete</span>
                                     </td>
                                 </tr>
                             )
